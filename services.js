@@ -1,5 +1,9 @@
 const { units, teens, tens } = require("./consts");
 function convertToFrench(number) {
+  if (number < 0 || number >= 1e12) {
+    return "Number out of range";
+  }
+
   if (number >= 0 && number <= 9) {
     return units[number];
   }
