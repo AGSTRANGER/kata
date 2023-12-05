@@ -1,4 +1,6 @@
+const fs = require("fs");
 const { units, teens, tens } = require("./consts");
+
 function convertToFrench(number) {
   if (number < 0 || number >= 1e12) {
     return "Number out of range";
@@ -108,7 +110,11 @@ function convertToFrench(number) {
   }
 }
 function convertListToFrench(numbers) {
-  return numbers.map(convertToFrench);
+  const frenchNumbers = numbers.map(convertToFrench);
+  const result = { input: numbers, output: frenchNumbers };
+  const jsonResult = JSON.stringify(result, null, 2);
+  fs.writeFileSync("result.json", jsonResult, "utf8");
+  return frenchNumbers;
 }
 
 exports.convertListToFrench = convertListToFrench;
