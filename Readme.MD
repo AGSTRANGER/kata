@@ -4,18 +4,18 @@ This project provides a simple utility to convert numerical input to their Frenc
 
 ## Usage
 
-1. Ensure you have Node.js installed on your machine.
+1. **Ensure you have Node.js installed on your machine.**
 
-2. Clone this repository:
+2. **Clone this repository**:
 
    ```bash
-   git clone https://github.com/your-username/Number-to-French-Converter.git
+   git clone https://github.com/AGSTRANGER/kata
    ```
 
 3. **Navigate to the project directory:**
 
    ```bash
-   cd Number-to-French-Converter
+   cd kata
    ```
 
 4. **Run the conversion script:**
