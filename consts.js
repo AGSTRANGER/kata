@@ -24,6 +24,8 @@ const tens = [
   "quatre-vingt-dix",
 ];
 
-exports.units = units;
-exports.teens = teens;
-exports.tens = tens;
+module.exports = {
+  units,
+  teens,
+  tens,
+};
