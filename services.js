@@ -106,8 +106,6 @@ function convertToFrench(number) {
 
     return tenThousandPart;
   }
-
-  return "Number out of range";
 }
 function convertListToFrench(numbers) {
   return numbers.map(convertToFrench);
