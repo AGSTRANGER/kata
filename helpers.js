@@ -1,4 +1,4 @@
-const { units, teens, tens } = require("./consts");
+const { units, teens, tens, numberRange } = require("./consts");
 
 function convertUnits(number) {
   return units[number];
@@ -87,73 +87,82 @@ function convertHundredThousands(number) {
         )}`;
   return tenThousandPart;
 }
+
+const getRange = (num) => {
+  if (num < 0 || num >= 1000000) {
+    return numberRange.NEGATIVE_TO_MILLION;
+  } else if (num >= 0 && num <= 9) {
+    return numberRange.ZERO_TO_NINE;
+  } else if (num >= 10 && num <= 16) {
+    return numberRange.TEN_TO_SIXTEEN;
+  } else if (num >= 17 && num <= 19) {
+    return numberRange.SEVENTEEN_TO_NINETEEN;
+  } else if (num >= 20 && num <= 69) {
+    return numberRange.TWENTY_TO_SIXTY_NINE;
+  } else if (num === 70) {
+    return numberRange.SEVENTY;
+  } else if (num >= 71 && num <= 79) {
+    return numberRange.SEVENTY_ONE_TO_SEVENTY_NINE;
+  } else if (num === 80) {
+    return numberRange.EIGHTY;
+  } else if (num >= 81 && num <= 89) {
+    return numberRange.EIGHTY_ONE_TO_EIGHTY_NINE;
+  } else if (num === 90) {
+    return numberRange.NINETY;
+  } else if (num >= 91 && num <= 99) {
+    return numberRange.NINETY_ONE_TO_NINETY_NINE;
+  } else if (num >= 100 && num <= 199) {
+    return numberRange.HUNDRED_TO_ONE_NINETY_NINE;
+  } else if (num >= 200 && num < 1000) {
+    return numberRange.TWO_HUNDRED_TO_NINE_HUNDRED_NINETY_NINE;
+  } else if (num >= 1000 && num <= 1999) {
+    return numberRange.THOUSAND_TO_ONE_THOUSAND_NINE_HUNDRED_NINETY_NINE;
+  } else if (num >= 2000 && num < 10000) {
+    return numberRange.TWO_THOUSAND_TO_NINE_THOUSAND_NINE_HUNDRED_NINETY_NINE;
+  } else if (num >= 10000 && num < 100000) {
+    return numberRange.TEN_THOUSAND_TO_NINETY_NINE_THOUSAND_NINE_HUNDRED_NINETY_NINE;
+  } else if (num >= 100000 && num < 1000000) {
+    return numberRange.HUNDRED_THOUSAND_TO_NINE_HUNDRED_NINETY_NINE_THOUSAND_NINE_HUNDRED_NINETY_NINE;
+  }
+};
 function convertToFrench(number) {
-  if (number < 0 || number >= 1000000) {
-    return "Number out of range";
-  }
+  const range = getRange(number);
 
-  if (number >= 0 && number <= 9) {
-    return convertUnits(number);
-  }
-
-  if (number >= 10 && number <= 16) {
-    return convertTeens(number);
-  }
-
-  if (number >= 17 && number <= 19) {
-    return convertTensAndUnits(10, number);
-  }
-
-  if (number >= 20 && number <= 69) {
-    return convertTens(number);
-  }
-
-  if (number === 70) {
-    return "soixante-dix";
-  }
-
-  if (number >= 71 && number <= 79) {
-    return convertSoixante(60, number);
-  }
-
-  if (number === 80) {
-    return "quatre-vingts";
-  }
-
-  if (number >= 81 && number <= 89) {
-    return convertQuatreVingt(number);
-  }
-
-  if (number === 90) {
-    return "quatre-vingt-dix";
-  }
-
-  if (number >= 91 && number <= 99) {
-    return convertQuatreVingt(number - 80);
-  }
-
-  if (number >= 100 && number <= 199) {
-    return convertHundreds(number);
-  }
-
-  if (number >= 200 && number < 1000) {
-    return convertHundredsAndUnits(number);
-  }
-
-  if (number >= 1000 && number <= 1999) {
-    return convertThousands(number);
-  }
-
-  if (number >= 2000 && number < 10000) {
-    return convertThousandsAndUnits(number);
-  }
-
-  if (number >= 10000 && number < 100000) {
-    return convertTenThousands(number);
-  }
-
-  if (number >= 100000 && number < 1000000) {
-    return convertHundredThousands(number);
+  switch (range) {
+    case numberRange.NEGATIVE_TO_MILLION:
+      return "Number out of range";
+    case numberRange.ZERO_TO_NINE:
+      return convertUnits(number);
+    case numberRange.TEN_TO_SIXTEEN:
+      return convertTeens(number);
+    case numberRange.SEVENTEEN_TO_NINETEEN:
+      return convertTensAndUnits(10, number);
+    case numberRange.TWENTY_TO_SIXTY_NINE:
+      return convertTens(number);
+    case numberRange.SEVENTY:
+      return "soixante-dix";
+    case numberRange.SEVENTY_ONE_TO_SEVENTY_NINE:
+      return convertSoixante(60, number);
+    case numberRange.EIGHTY:
+      return "quatre-vingts";
+    case numberRange.EIGHTY_ONE_TO_EIGHTY_NINE:
+      return convertQuatreVingt(number);
+    case numberRange.NINETY:
+      return "quatre-vingt-dix";
+    case numberRange.NINETY_ONE_TO_NINETY_NINE:
+      return convertQuatreVingt(number - 80);
+    case numberRange.HUNDRED_TO_ONE_NINETY_NINE:
+      return convertHundreds(number);
+    case numberRange.TWO_HUNDRED_TO_NINE_HUNDRED_NINETY_NINE:
+      return convertHundredsAndUnits(number);
+    case numberRange.THOUSAND_TO_ONE_THOUSAND_NINE_HUNDRED_NINETY_NINE:
+      return convertThousands(number);
+    case numberRange.TWO_THOUSAND_TO_NINE_THOUSAND_NINE_HUNDRED_NINETY_NINE:
+      return convertThousandsAndUnits(number);
+    case numberRange.TEN_THOUSAND_TO_NINETY_NINE_THOUSAND_NINE_HUNDRED_NINETY_NINE:
+      return convertTenThousands(number);
+    case numberRange.HUNDRED_THOUSAND_TO_NINE_HUNDRED_NINETY_NINE_THOUSAND_NINE_HUNDRED_NINETY_NINE:
+      return convertHundredThousands(number);
   }
 }
 
