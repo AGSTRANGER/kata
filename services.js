@@ -2,7 +2,7 @@ const fs = require("fs");
 const { units, teens, tens } = require("./consts");
 
 function convertToFrench(number) {
-  if (number < 0 || number >= 1e12) {
+  if (number < 0 || number >= 1000000) {
     return "Number out of range";
   }
 
