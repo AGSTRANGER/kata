@@ -27,4 +27,3 @@ const tens = [
 exports.units = units;
 exports.teens = teens;
 exports.tens = tens;
-exports.hundreds = hundreds;
